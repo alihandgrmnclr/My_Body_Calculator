@@ -14,15 +14,14 @@ function App() {
   const [bodyFat, setBodyFat] = useState("");
 
   const CalcMan = () => {
-      const BodyFat = (495 / (1.0324 - 0.19077 * Math.log10(waist - neck) + 0.15456 * Math.log10(height)) - 450).toFixed(2);
-      setBodyFat(BodyFat);
-  };
-
-  const CalcWoman = () => {
-    const BodyFat = (495 / ( 1.29579 - 0.35004 * Math.log10( waist + hip - neck ) + 0.22100 * Math.log10( height )) - 450).toFixed(2);
+    const BodyFat = (495 / (1.0324 - 0.19077 * Math.log10((+waist) - (+neck)) + 0.15456 * Math.log10(height)) - 450).toFixed(2);  // number'a çevirmek için "+" koyduk (veri string olarak geliyor)
     setBodyFat(BodyFat);
   };
 
+  const CalcWoman = () => {
+    const BodyFat = (495 / (1.29579 - 0.35004 * Math.log10((+waist) + (+hip) - (+neck)) + 0.22100 * Math.log10(height)) - 450).toFixed(2);  // number'a çevirmek için "+" koyduk (veri string olarak geliyor)
+    setBodyFat(BodyFat);
+  };
 
   return (
     <div className="App">
@@ -87,7 +86,7 @@ function App() {
           </div>
         </div>)
         : <div>{/* gender yoksa boş div */}</div>
-        }
+      }
 
     </div>
   );
