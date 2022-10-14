@@ -21,13 +21,13 @@ function App() {
   const CalcMan = () => {
     const BodyFat = (495 / (1.0324 - 0.19077 * Math.log10((+waist) - (+neck)) + 0.15456 * Math.log10(height)) - 450).toFixed(2);  // number'a çevirmek için "+" koyduk (veri string olarak geliyor)
     setBodyFat(BodyFat);
-    if (BodyFat>6 && BodyFat<13) {            // Setting your status (average, obesite exc..)
+    if (BodyFat > 6 && BodyFat < 13) {            // Setting your status (average, obesite exc..)
       setStatus("You are athletic");
-    } else if (BodyFat>13 && BodyFat<17) {
+    } else if (BodyFat > 13 && BodyFat < 17) {
       setStatus("You are in shape");
-    } else if (BodyFat>17 && BodyFat<25){
+    } else if (BodyFat > 17 && BodyFat < 25) {
       setStatus("You are in average");
-    } else if (BodyFat>25){
+    } else if (BodyFat > 25) {
       setStatus("You are obesite");
     }
   };
@@ -35,15 +35,15 @@ function App() {
   const CalcWoman = () => {
     const BodyFat = (495 / (1.29579 - 0.35004 * Math.log10((+waist) + (+hip) - (+neck)) + 0.22100 * Math.log10(height)) - 450).toFixed(2);  // number'a çevirmek için "+" koyduk (veri string olarak geliyor)
     setBodyFat(BodyFat);
-    if (BodyFat>10 && BodyFat<13) {            // Setting your status (average, obesite exc..)
+    if (BodyFat > 10 && BodyFat < 13) {            // Setting your status (average, obesite exc..)
       setStatus("You are essential");
-    } else if (BodyFat>13 && BodyFat<20) {
+    } else if (BodyFat > 13 && BodyFat < 20) {
       setStatus("You are athletic");
-    } else if (BodyFat>20 && BodyFat<25){
+    } else if (BodyFat > 20 && BodyFat < 25) {
       setStatus("You are in shape");
-    } else if (BodyFat>25 && BodyFat<32){
+    } else if (BodyFat > 25 && BodyFat < 32) {
       setStatus("You are average");
-    }else if (BodyFat>32){
+    } else if (BodyFat > 32) {
       setStatus("You are obesite");
     }
   };
@@ -83,23 +83,26 @@ function App() {
       <h1>Welcome To My Body Calculator</h1>
       <div className="container mt-5">
         <div className="row">
-          <h3>
-            Select Your Gender
-          </h3>
-          <div className="col-sm-12 d-flex justify-content-center mb-3">
+          <div className="card">
+            <div className="card-header">
+              <h3>
+                Select Your Gender
+              </h3>
+              <div className="col-sm-12 d-flex justify-content-center mb-3">
 
-            <input type="radio" name="gender" value="male" onClick={() => setGender("male")} />
-            <label htmlFor="radio">Male</label>
-            <input type="radio" name="gender" value="famale" onClick={() => setGender("famale")} />
-            <label htmlFor="radio">Famale</label>
+                <input type="radio" name="gender" value="male" onClick={() => setGender("male")} />
+                <label htmlFor="radio">Male</label>
+                <input type="radio" name="gender" value="famale" onClick={() => setGender("famale")} />
+                <label htmlFor="radio">Famale</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       {gender ? (gender === "male" ?
         <div className="container">
           <div className="row">
-            <div className="col-sm-12 justify-content-center myForm">
+            <div className="input-wrapper col-sm-12">
               {/* <form onSubmit={handleSubmit}>
                 <label htmlFor="height">Your Height</label>
                 <input type="number" name='height' value={values.height} onChange={handleChange} onBlur={handleBlur} placeholder="175" />
@@ -122,20 +125,18 @@ function App() {
 
               </form>
               {bodyFat && <div className='mt-3'>Your Body fat is {bodyFat}% <br /><div>Your BMI is: {bmi}</div></div>} */}
-              <div>
-                <span>Your Height </span>
-                <input placeholder='175' type="number" value={height} onChange={(e) => setHeight(e.target.value)} /> </div>
-              <div>
-                <span>Your neck width (the widest)</span>
-                <input placeholder='35' type="number" value={neck} onChange={(e) => setNeck(e.target.value)} />
-              </div>
-              <div>
-                <span>Your waist circumference (the thinnest)</span>
-                <input placeholder='85' type="number" value={waist} onChange={(e) => setWaist(e.target.value)} />
-              </div>
-              <div>
-                <span>Your weight</span>
-                <input placeholder='85' type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
+              <div className="inputs">
+                <label htmlFor="height">Your Height </label>
+                <input placeholder='175' type="number" id='height' value={height} onChange={(e) => setHeight(e.target.value)} />
+
+                <label htmlFor="neck">Your neck width (the widest)</label>
+                <input placeholder='35' type="number" id='neck' value={neck} onChange={(e) => setNeck(e.target.value)} />
+
+                <label htmlFor="waist">Your waist circumference (the thinnest)</label>
+                <input placeholder='85' type="number" id='waist' value={waist} onChange={(e) => setWaist(e.target.value)} />
+
+                <label htmlFor="weight">Your weight</label>
+                <input placeholder='85' type="number" id='weight' value={weight} onChange={(e) => setWeight(e.target.value)} />
               </div>
               <button className="btn btn-primary mt-3" onClick={() => { CalcMan(); CalcBMI(); }}>Calculate</button> <br />
               {bodyFat && <div className='mt-3'>Your Body fat is {bodyFat}% <br /><div>Your BMI is: {bmi} <br /><div>{status}</div></div></div>}
@@ -146,29 +147,24 @@ function App() {
         :
         <div className='container'>
           <div className="row">
-            <div className="col-sm-12 justify-content-center myForm">
-              <div>
-                <span>Your Height </span>
-                <input placeholder='175' type="number" value={height} onChange={(e) => setHeight(e.target.value)} /> </div>
-              <div>
-                <span>Your neck width (the widest)</span>
-                <input placeholder='35' type="number" value={neck} onChange={(e) => setNeck(e.target.value)} />
-              </div>
-              <div>
-                <span>Your waist circumference (the thinnest)</span>
-                <input placeholder='85' type="number" value={waist} onChange={(e) => setWaist(e.target.value)} />
-              </div>
-              <div>
-                <span>Your hip circumference (the widest)</span>
-                <input placeholder='95' type="number" value={hip} onChange={(e) => setHip(e.target.value)} />
-              </div>
-              <div>
-                <span>Your weight</span>
-                <input placeholder='85' type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
-              </div>
-              <button className="btn btn-primary mt-3" onClick={() => { CalcWoman(); CalcBMI(); }}>Calculate</button> <br />
-              {bodyFat && <div className='mt-3'>Your Body fat is {bodyFat}% <br /><div>Your BMI is: {bmi}<br/><div>{status}</div></div></div>}
+            <div className="col-sm-12 inputs">
+              <label htmlFor="w-height">Your Height</label>
+              <input placeholder='175' type="number" id='w-height' value={height} onChange={(e) => setHeight(e.target.value)} />
 
+              <label htmlFor="w-neck">Your neck width (the widest)</label>
+              <input placeholder='35' type="number" id='w-neck' value={neck} onChange={(e) => setNeck(e.target.value)} />
+
+              <label htmlFor="w-waist">Your waist circumference (the thinnest)</label>
+              <input placeholder='85' type="number" id='w-waist' value={waist} onChange={(e) => setWaist(e.target.value)} />
+
+              <label htmlFor="w-hip">Your hip circumference (the widest)</label>
+              <input placeholder='95' type="number" id='w-hip' value={hip} onChange={(e) => setHip(e.target.value)} />
+
+              <label htmlFor="w-weight">Your weight</label>
+              <input placeholder='85' type="number" id='w-weight' value={weight} onChange={(e) => setWeight(e.target.value)} />
+
+              <button className="btn btn-primary mt-3" onClick={() => { CalcWoman(); CalcBMI(); }}>Calculate</button> <br />
+              {bodyFat && <div className='mt-3'>Your Body fat is {bodyFat}% <br /><div>Your BMI is: {bmi}<br /><div>{status}</div></div></div>}
             </div>
           </div>
         </div>)
